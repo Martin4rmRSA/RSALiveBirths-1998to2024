@@ -1,0 +1,112 @@
+table BIRTHS1998_2024
+	lineageTag: b42e1447-283b-4b3f-bb8a-a390868f5da3
+
+	measure PercentTeenMom = SUM(BIRTHS1998_2024[Teenage Mom]) / COUNT(BIRTHS1998_2024[SerialNo])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 647566d6-d6bf-4534-8ddf-8713002e6bea
+
+	column SerialNo
+		dataType: int64
+		formatString: 0
+		lineageTag: 529ca122-b989-4fc3-88c2-ccfe15226c26
+		summarizeBy: sum
+		sourceColumn: SerialNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegistrationYear
+		dataType: double
+		lineageTag: 5b00aa44-e939-41c6-a699-a1b024b04103
+		summarizeBy: sum
+		sourceColumn: RegistrationYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BirthYear
+		dataType: double
+		lineageTag: af7b45dd-f0e8-4672-9579-5a43d0e7ec36
+		summarizeBy: none
+		sourceColumn: BirthYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BirthMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 74c8054b-e2bd-42f2-9bb6-aab02d5cddba
+		summarizeBy: sum
+		sourceColumn: BirthMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: int64
+		formatString: 0
+		lineageTag: b1c392dc-9711-4b20-8875-88eece0c9429
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column FatherAge
+		dataType: int64
+		formatString: 0
+		lineageTag: 59b650fe-b0d3-4fd3-819d-d13ab4410e22
+		summarizeBy: sum
+		sourceColumn: FatherAge
+
+		annotation SummarizationSetBy = Automatic
+
+	column MotherAge
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a94add6-9b38-441c-9008-f755f5db593e
+		summarizeBy: sum
+		sourceColumn: MotherAge
+
+		annotation SummarizationSetBy = Automatic
+
+	column Province
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b5db683-4f06-46eb-a0e0-059331957fb0
+		summarizeBy: none
+		sourceColumn: Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Present Father' = IF(BIRTHS1998_2024[FatherAge] >= 10 && BIRTHS1998_2024[FatherAge] <= 140,1,0)
+		formatString: 0
+		lineageTag: f50686df-86c1-4e52-a3fa-35b82199472d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Teenage Mom' = IF([MotherAge] <= 17 && [MotherAge] >= 8,1,0)
+		formatString: 0
+		lineageTag: fc09a837-c129-436d-a2ad-6e4a657dd900
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BIRTHS1998_2024 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\msela\Downloads\BIRTHS1998_2024\BIRTHS1998_2024.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SerialNo", Int64.Type}, {"RegistrationYear", Int64.Type}, {"BirthYear", Int64.Type}, {"BirthMonth", Int64.Type}, {"Sex", Int64.Type}, {"FatherAge", Int64.Type}, {"MotherAge", Int64.Type}, {"RegistrationStatus", Int64.Type}, {"SeatCode", Int64.Type}, {"DCCode", type text}, {"Province", Int64.Type}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"RegistrationYear", type date}, {"BirthYear", type date}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type1",{"SerialNo", "RegistrationYear", "BirthYear", "BirthMonth", "Sex", "FatherAge", "MotherAge", "Province"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Other Columns",{{"RegistrationYear", type number}, {"BirthYear", type number}})
+				in
+				    #"Changed Type2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,88 @@
+table DateTable
+	lineageTag: c76e565d-bb39-4343-a4d1-c776ac8fcb97
+
+	column Date
+		formatString: General Date
+		lineageTag: e209eec0-1225-4619-94d1-327888672658
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: f059af8e-4e6b-44a5-ade8-27bf8822741b
+			defaultHierarchy: LocalDateTable_31dd6236-d43d-44fd-b3b3-58963bce388b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 12be6ec3-56ad-47cf-b966-33ee850ae85b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: ae7ccf65-ae7f-4e87-9eb7-efc4b2ddd91b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 9333e9d7-78ec-4903-b02c-476577d477fd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Short'
+		lineageTag: ef006025-18f4-4e4e-8110-66d1b7257951
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Short]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		lineageTag: ce52102f-1094-4679-8683-8fd1b66e980f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month-Year
+		lineageTag: 7f7b9eb0-de1a-46b5-b0d1-4f8db2115b28
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month-Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateTable = calculated
+		mode: import
+		source = ```
+				
+				VAR StartDate = DATE(1998, 1, 1)
+				VAR EndDate = DATE(2024, 12, 31)
+				RETURN
+				ADDCOLUMNS(
+				    CALENDAR(StartDate, EndDate),
+				    "Year", YEAR([Date]),
+				    "Month Number", MONTH([Date]),
+				    "Month Name", FORMAT([Date], "MMMM"),
+				    "Month Short", FORMAT([Date], "MMM"),
+				    "Year-Month", FORMAT([Date], "YYYY-MM"),
+				    "Month-Year", FORMAT([Date], "MMM-YYYY")
+				)
+				
+				```
+
+	annotation PBI_Id = 9d2b90f14557451b8089c9c73ae3f7b8
+

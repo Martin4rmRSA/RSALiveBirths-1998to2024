@@ -1,0 +1,23 @@
+model Model
+	culture: en-ZA
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-ZA
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["BIRTHS1998_2024","Location"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table BIRTHS1998_2024
+ref table DateTable
+ref table DateTableTemplate_1785fbef-82cc-4d1e-864d-238517848858
+ref table LocalDateTable_31dd6236-d43d-44fd-b3b3-58963bce388b
+ref table Dim_GenderLookup
+ref table Location
+
+ref cultureInfo en-ZA
+

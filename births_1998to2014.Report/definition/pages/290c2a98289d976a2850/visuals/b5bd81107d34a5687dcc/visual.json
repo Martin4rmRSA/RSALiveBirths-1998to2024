@@ -1,0 +1,237 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "b5bd81107d34a5687dcc",
+  "position": {
+    "x": 640,
+    "y": 352,
+    "z": 3000,
+    "height": 368,
+    "width": 624,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "lineClusteredColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "BIRTHS1998_2024"
+                    }
+                  },
+                  "Property": "BirthYear"
+                }
+              },
+              "queryRef": "BIRTHS1998_2024.BirthYear",
+              "nativeQueryRef": "BirthYear",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_GenderLookup"
+                    }
+                  },
+                  "Property": "Gender Name"
+                }
+              },
+              "queryRef": "Dim_GenderLookup.Gender Name",
+              "nativeQueryRef": "Gender Name"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BIRTHS1998_2024"
+                        }
+                      },
+                      "Property": "SerialNo"
+                    }
+                  },
+                  "Function": 2
+                }
+              },
+              "queryRef": "Count(BIRTHS1998_2024.SerialNo)",
+              "nativeQueryRef": "Count of SerialNo"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BIRTHS1998_2024"
+                        }
+                      },
+                      "Property": "FatherAge"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "Sum(BIRTHS1998_2024.FatherAge)",
+              "nativeQueryRef": "Count of FatherAge"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "BIRTHS1998_2024"
+                      }
+                    },
+                    "Property": "SerialNo"
+                  }
+                },
+                "Function": 2
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "664d257b66a07e1b95da",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "BIRTHS1998_2024"
+              }
+            },
+            "Property": "BirthYear"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "b",
+              "Entity": "BIRTHS1998_2024",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 2,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "b"
+                        }
+                      },
+                      "Property": "BirthYear"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "1998L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "c1e885b0af2b7dfb1202",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "BIRTHS1998_2024"
+                  }
+                },
+                "Property": "FatherAge"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "b",
+              "Entity": "BIRTHS1998_2024",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 1,
+                  "Left": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "b"
+                            }
+                          },
+                          "Property": "FatherAge"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "200L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

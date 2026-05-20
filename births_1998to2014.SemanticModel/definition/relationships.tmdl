@@ -1,0 +1,26 @@
+relationship f059af8e-4e6b-44a5-ade8-27bf8822741b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DateTable.Date
+	toColumn: LocalDateTable_31dd6236-d43d-44fd-b3b3-58963bce388b.Date
+
+relationship c580d63a-f3f2-399c-5a30-a7cf6495e9d0
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: BIRTHS1998_2024.BirthYear
+	toColumn: DateTable.Year
+
+relationship ecb10ac9-4fcb-55b7-b948-03311a7ee9bc
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: BIRTHS1998_2024.RegistrationYear
+	toColumn: DateTable.Year
+
+relationship cfabb1c5-2d72-616c-dcdd-e067cec67958
+	fromColumn: BIRTHS1998_2024.Sex
+	toColumn: Dim_GenderLookup.'Gender Code'
+
+relationship AutoDetected_c728b249-6abc-4475-a951-2aadc58027d2
+	fromColumn: BIRTHS1998_2024.Province
+	toColumn: Location.Province
+

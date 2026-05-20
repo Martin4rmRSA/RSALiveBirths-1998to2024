@@ -1,0 +1,34 @@
+table Dim_GenderLookup
+	lineageTag: 8e90e47d-24b8-4192-ac54-c37988cbd095
+
+	column 'Gender Code'
+		formatString: 0
+		lineageTag: 9d7ee02b-dde9-4425-acc1-d73bcc4bb27a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Gender Code]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gender Name'
+		lineageTag: 15272bf1-470a-455f-9f4a-9a02059a0749
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Gender Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_GenderLookup = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "Gender Code", INTEGER,
+				    "Gender Name", STRING,
+				    {{1, "Male"}, {2, "Female"}}
+				)
+				
+				```
+
+	annotation PBI_Id = baa54e83869e48acaa7bd79db0dc3b36
+
