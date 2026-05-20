@@ -10,7 +10,7 @@ Statistics South Africa is a government entity that collects, stores and distrib
 The dashboard turns over 32 million observations into an interactive dashboard that that looks at trends and facts regarding parents’ ages from 1998 to 2024.
 
 Below is a snapshot of the dashboard without any slicers being applied.
-
+![DashboardOverview](https://github.com/Martin4rmRSA/RSALiveBirths-1998to2024/blob/main/snapshotOfDashboard.png)
 
 ## Method
 PowerBI’s powerful Power Query was used extensively to clean and verify the data based on the dataset’s metadata provided by Statistics SA. 
